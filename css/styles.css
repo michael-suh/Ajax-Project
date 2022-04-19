@@ -1,0 +1,29 @@
+header {
+  background-color: red;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.movies-txt {
+  font-size: 0.7cm;
+  margin-right: 10px;
+  text-decoration: none;
+  color: white;
+  font-weight: 900;
+}
+
+.reviews-txt {
+  font-size: 0.7cm;
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+
+#movie-list > img {
+  width: 50%;
+  padding: 50px;
+  object-fit: cover;
+  object-position: center;
+  flex-wrap: wrap;
+}
