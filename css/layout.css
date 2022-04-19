@@ -4,6 +4,10 @@
   padding: 0 1.5rem;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -24,6 +28,13 @@
 
   .column-half {
     width: 50%;
-    margin: 1.5rem;
+  }
+
+  .column-one-third {
+    width: 33%;
+  }
+
+  .column-two-thirds {
+    width: 66%;
   }
 }
