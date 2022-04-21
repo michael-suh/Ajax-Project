@@ -111,10 +111,10 @@ textarea {
   text-align: center;
 }
 
-.new-review-txt {
+.personal-review-txt {
   font-size: 0.6cm;
   position: relative;
-  right: 26%;
+  right: 25%;
 }
 
 #review-submit {
@@ -142,6 +142,7 @@ h4 {
   margin: 0 auto;
   font-size: 0.4cm;
   padding-top: 15px;
+  margin-right: 150px;
 }
 
 ul {
@@ -151,4 +152,15 @@ ul {
 .reviews-li {
   padding-top: 5%;
   padding-bottom: 5%;
+}
+
+#edit-btn {
+  background-color: red;
+  color: white;
+  font-size: 0.5cm;
+  width: 60px;
+  height: 35px;
+  border: none;
+  float: right;
+  margin-right: 10%;
 }
