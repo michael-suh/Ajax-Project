@@ -9,6 +9,8 @@ header {
   text-decoration: none;
   color: white;
   font-weight: 900;
+  position: relative;
+  right: 30px;
 }
 
 .reviews-txt {
@@ -36,18 +38,14 @@ header {
   margin: 2%;
 }
 
-ul {
-  list-style: none;
-}
-
-li {
+.info-box > li {
   padding: 5px;
   font-size: 0.5cm;
 }
 
 #movie-banner {
-  width: 40%;
-  margin-left: 30%;
+  width: 30%;
+  margin-left: 35%;
 }
 
 #back-btn {
@@ -59,10 +57,23 @@ li {
   height: 35px;
 }
 
+#add-review-btn {
+  background-color: red;
+  color: white;
+  margin-right: 2.5%;
+  font-size: 0.5cm;
+  width: 120px;
+  height: 35px;
+}
+
+#info-button {
+  justify-content: space-between;
+}
+
 p {
   color: white;
   font-style: bold;
-  font-size: 0.6cm;
+  font-size: 0.5cm;
   text-align: center;
 }
 
@@ -70,4 +81,71 @@ h2 {
   color: white;
   font-size: 1cm;
   text-align: center;
+}
+
+.no-reviews-txt {
+  text-align: center;
+  font-size: 0.8cm;
+  margin-top: 8%;
+}
+
+textarea {
+  color: black;
+  font-size: 0.4cm;
+  border: 5px solid red;
+  margin-top: 10px;
+}
+
+#review-txt {
+  width: 60%;
+  height: 250px;
+}
+
+#review-image {
+  width: 20%;
+}
+
+.center {
+  text-align: center;
+}
+
+.new-review-txt {
+  font-size: 0.6cm;
+  position: relative;
+  right: 26%;
+}
+
+#review-submit {
+  background-color: red;
+  color: white;
+  float: right;
+  margin-top: 3px;
+  width: 75px;
+  height: 35px;
+  font-size: 0.5cm;
+  position: relative;
+  right: 20%;
+}
+
+h4 {
+  text-align: left;
+  margin: 0 auto;
+  font-size: 0.7cm;
+  padding-top: 10px;
+}
+
+.review-list-p {
+  text-align: left;
+  margin: 0 auto;
+  font-size: 0.4cm;
+  padding-top: 15px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.reviews-li {
+  padding-top: 5%;
+  padding-bottom: 5%;
 }
