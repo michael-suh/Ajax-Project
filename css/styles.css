@@ -55,6 +55,7 @@ header {
   font-size: 0.5cm;
   width: 80px;
   height: 35px;
+  border: none;
 }
 
 #add-review-btn {
@@ -64,6 +65,7 @@ header {
   font-size: 0.5cm;
   width: 120px;
   height: 35px;
+  border: none;
 }
 
 #info-button {
@@ -125,6 +127,7 @@ textarea {
   font-size: 0.5cm;
   position: relative;
   right: 20%;
+  border: none;
 }
 
 h4 {
