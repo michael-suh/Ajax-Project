@@ -9,6 +9,7 @@ var $reviewsTab = document.querySelector('#reviews-tab');
 var $reviewList = document.querySelector('#review-list');
 var $form = document.querySelector('form');
 var $ulElement = document.querySelector('ul');
+var newReviewList = document.querySelector('#new-review-list');
 
 var xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://imdb-api.com/API/InTheaters/k_ke6b7now');
@@ -35,8 +36,8 @@ function handlePosterClick(event) {
     $movieList.className = 'hidden';
     $infoPage.className = '';
     $reviewPage.className = 'hidden';
-    var id = event.target.getAttribute('movie-index');
-    var movieInfoDom = createMovieInfo(xhr.response.items[id]);
+    var index = event.target.getAttribute('movie-index');
+    var movieInfoDom = createMovieInfo(xhr.response.items[index]);
     $movieInfo.appendChild(movieInfoDom);
   }
 }
@@ -163,16 +164,48 @@ $form.addEventListener('submit', submitReview);
 
 function submitReview(event) {
   event.preventDefault();
-  var review = {
-    title: document.querySelector('#movie-title').textContent,
-    image: document.querySelector('#movie-banner').src,
-    text: $form.elements[0].value,
-    reviewId: data.nextReviewId
-  };
-  data.nextReviewId++;
-  data.reviews.unshift(review);
-  $ulElement.prepend(createReviewListItem(review));
-  $form.reset();
+  var review = {};
+  if (data.editing === null) {
+    review = {
+      title: document.querySelector('#movie-title').textContent,
+      image: document.querySelector('#movie-banner').src,
+      text: $form.elements[0].value,
+      reviewId: data.nextReviewId
+    };
+
+    // add new review to data
+
+    data.nextReviewId++;
+    data.reviews.unshift(review);
+    $ulElement.prepend(createReviewListItem(review));
+    $form.reset();
+
+  } else if (data.editing !== null) {
+    review.title = document.querySelector('#movie-title').textContent;
+    review.image = document.querySelector('#movie-banner').src;
+    review.text = $form.elements[0].value;
+    review.reviewId = data.editing.reviewId;
+
+    // push edited reviews to review list
+
+    for (var i = 0; i < data.reviews.length; i++) {
+      if (data.reviews[i].reviewId === review.reviewId) {
+        data.reviews[i] = review;
+      }
+    }
+
+    // replace dom
+
+    var reviewItems = document.querySelectorAll('#review-list-item');
+    for (var z = 0; z < reviewItems.length; z++) {
+      var reviewItemID = JSON.parse(reviewItems[z].getAttribute('data-review-id'));
+      if (reviewItemID === data.editing.reviewId) {
+        reviewItems[z].replaceWith(createReviewListItem(review));
+      }
+    }
+    data.editing = null;
+    $form.reset();
+  }
 
   $movieList.className = 'hidden';
   $infoPage.className = 'hidden';
@@ -186,6 +219,7 @@ function submitReview(event) {
 function createReviewListItem(review) {
   var liElement = document.createElement('li');
   liElement.setAttribute('class', 'reviews-li');
+  liElement.setAttribute('id', 'review-list-item');
   liElement.setAttribute('data-review-id', review.reviewId);
 
   var row = document.createElement('div');
@@ -206,22 +240,61 @@ function createReviewListItem(review) {
   row.appendChild(reviewsText);
 
   var titleElement = document.createElement('h4');
+  titleElement.setAttribute('id', 'movie-title');
   titleElement.textContent = review.title;
   reviewsText.appendChild(titleElement);
+
+  var spanElement = document.createElement('span');
+  spanElement.setAttribute('class', 'edit-span');
+  liElement.appendChild(spanElement);
+
+  var editButton = document.createElement('button');
+  editButton.setAttribute('id', 'edit-btn');
+  editButton.textContent = 'Edit';
+  spanElement.appendChild(editButton);
 
   var pElement = document.createElement('p');
   pElement.setAttribute('class', 'review-list-p');
   pElement.textContent = review.text;
   reviewsText.appendChild(pElement);
 
+  var divElement = document.createElement('div');
+  divElement.setAttribute('class', 'float-right');
+  liElement.appendChild(divElement);
+
   return liElement;
 }
 
-var newReviewList = document.querySelector('#new-review-list');
+// make reviews stay after refreshing
 
 document.addEventListener('DOMContentLoaded', function (event) {
   for (var i = 0; i < data.reviews.length; i++) {
     var result = createReviewListItem(data.reviews[i]);
     newReviewList.appendChild(result);
+  }
+});
+
+// edit reviews
+
+newReviewList.addEventListener('click', function (event) {
+  if (event.target && event.target.matches('BUTTON')) {
+    var $liClosest = event.target.closest('li');
+    var $reviewId = $liClosest.getAttribute('data-review-id');
+    $reviewId = JSON.parse($reviewId);
+    for (var i = 0; i < data.reviews.length; i++) {
+      if (data.reviews[i].reviewId === $reviewId) {
+        data.editing = data.reviews[i];
+      }
+    }
+    document.querySelector('#review-movie').textContent = data.editing.title;
+    document.querySelector('#review-image').src = data.editing.image;
+    $form.elements[0].value = data.editing.text;
+
+    $reviewPage.className = '';
+    noReviews.classList.add('hidden');
+    newReview.className = '';
+    $movieList.className = 'hidden';
+    $infoPage.className = 'hidden';
+    $reviewList.className = 'hidden';
   }
 });
