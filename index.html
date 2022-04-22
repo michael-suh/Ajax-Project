@@ -11,6 +11,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="row">
+    <div id="modal" class="gradient hidden">
+      <div id="confirm-modal">
+        <div id="confirm-txt">Are you sure you want to delete this review?</div>
+        <div class="row space-between">
+          <button class="no-btn">NO</button>
+          <button class="yes-btn">YES</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <header>
     <div class="container">
       <div class="column-full list-page">
@@ -65,7 +76,8 @@
                 <img id="review-image">
                 <h3 class="personal-review-txt">Personal Review</h3>
                 <textarea id="review-txt" cols="30" rows="5" required></textarea>
-                <div class="float-right">
+                <div class="space-between">
+                  <button id="review-delete" type="button" class="not-visible">Delete</button>
                   <button id="review-submit" type="submit">Submit</button>
                 </div>
               </form>

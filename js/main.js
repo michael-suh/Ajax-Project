@@ -10,6 +10,10 @@ var $reviewList = document.querySelector('#review-list');
 var $form = document.querySelector('form');
 var $ulElement = document.querySelector('ul');
 var newReviewList = document.querySelector('#new-review-list');
+var $deleteButton = document.querySelector('#review-delete');
+var $modal = document.querySelector('#modal');
+var $noButton = document.querySelector('.no-btn');
+var $yesButton = document.querySelector('.yes-btn');
 
 var xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://imdb-api.com/API/InTheaters/k_ke6b7now');
@@ -123,7 +127,9 @@ $moviesTab.addEventListener('click', function (event) {
 
 // Reviews Tab
 
-$reviewsTab.addEventListener('click', function (event) {
+$reviewsTab.addEventListener('click', clickReview);
+
+function clickReview(event) {
   $movieList.className = 'hidden';
   $infoPage.className = 'hidden';
 
@@ -142,7 +148,7 @@ $reviewsTab.addEventListener('click', function (event) {
   if (event.target) {
     removeChild($movieInfo);
   }
-});
+}
 
 function handleReviewButton(event) {
   $reviewPage.className = '';
@@ -151,6 +157,8 @@ function handleReviewButton(event) {
   $movieList.className = 'hidden';
   $infoPage.className = 'hidden';
   $reviewList.className = 'hidden';
+
+  $deleteButton.className = 'not-visible';
 
   var reviewMovieTitle = document.querySelector('#review-movie');
   var reviewImage = document.querySelector('#review-image');
@@ -276,8 +284,11 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 // edit reviews
 
-newReviewList.addEventListener('click', function (event) {
-  if (event.target && event.target.matches('BUTTON')) {
+newReviewList.addEventListener('click', handleEditBtn);
+
+function handleEditBtn(event) {
+  if (event.target.matches('#edit-btn')) {
+    $deleteButton.className = '';
     var $liClosest = event.target.closest('li');
     var $reviewId = $liClosest.getAttribute('data-review-id');
     $reviewId = JSON.parse($reviewId);
@@ -297,4 +308,39 @@ newReviewList.addEventListener('click', function (event) {
     $infoPage.className = 'hidden';
     $reviewList.className = 'hidden';
   }
+}
+
+// confirmation modal
+
+$deleteButton.addEventListener('click', function (event) {
+  $modal.className = 'gradient';
+});
+
+$noButton.addEventListener('click', function (event) {
+  $modal.className = 'gradient hidden';
+  $movieList.className = 'hidden';
+  $infoPage.className = 'hidden';
+  noReviews.className = 'text-center hidden';
+  newReview.className = 'hidden';
+  $reviewPage.className = '';
+  $reviewList.className = '';
+  data.view = 'review-list';
+});
+
+$yesButton.addEventListener('click', function (event) {
+  var reviewItems = document.querySelectorAll('#review-list-item');
+  for (var i = 0; i < data.reviews.length; i++) {
+    if (data.reviews[i].reviewId === data.editing.reviewId) {
+      data.reviews.splice(i, 1);
+    }
+    var reviewIdNum = parseInt(reviewItems[i].getAttribute('data-review-id'));
+    if (reviewIdNum === data.editing.reviewId) {
+      reviewItems[i].remove();
+    }
+  }
+  data.editing = null;
+  data.review = 'reviews-list';
+  $modal.className = 'gradient hidden';
+  $form.reset();
+  clickReview(event);
 });
