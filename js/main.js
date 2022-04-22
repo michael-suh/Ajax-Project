@@ -11,9 +11,14 @@ var $form = document.querySelector('form');
 var $ulElement = document.querySelector('ul');
 var newReviewList = document.querySelector('#new-review-list');
 var $deleteButton = document.querySelector('#review-delete');
+var $goBackbtn = document.querySelector('#back-btn');
 var $modal = document.querySelector('#modal');
 var $noButton = document.querySelector('.no-btn');
 var $yesButton = document.querySelector('.yes-btn');
+var $moviesTab = document.querySelector('#movies-tab');
+var reviewMovieTitle = document.querySelector('#review-movie');
+var reviewImage = document.querySelector('#review-image');
+var reviewItems = document.querySelectorAll('#review-list-item');
 
 var xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://imdb-api.com/API/InTheaters/k_ke6b7now');
@@ -101,7 +106,6 @@ function removeChild(parent) {
   }
 }
 
-var $goBackbtn = document.querySelector('#back-btn');
 $goBackbtn.addEventListener('click', goBack);
 
 function goBack(event) {
@@ -115,7 +119,6 @@ function goBack(event) {
 
 // Movies Tab
 
-var $moviesTab = document.querySelector('#movies-tab');
 $moviesTab.addEventListener('click', function (event) {
   $movieList.className = '';
   $infoPage.className = 'hidden';
@@ -160,8 +163,6 @@ function handleReviewButton(event) {
 
   $deleteButton.className = 'not-visible';
 
-  var reviewMovieTitle = document.querySelector('#review-movie');
-  var reviewImage = document.querySelector('#review-image');
   reviewMovieTitle.textContent = document.querySelector('#movie-title').textContent;
   reviewImage.setAttribute('src', document.querySelector('#movie-banner').src);
 }
@@ -204,7 +205,6 @@ function submitReview(event) {
 
     // replace dom
 
-    var reviewItems = document.querySelectorAll('#review-list-item');
     for (var z = 0; z < reviewItems.length; z++) {
       var reviewItemID = JSON.parse(reviewItems[z].getAttribute('data-review-id'));
       if (reviewItemID === data.editing.reviewId) {
@@ -328,7 +328,6 @@ $noButton.addEventListener('click', function (event) {
 });
 
 $yesButton.addEventListener('click', function (event) {
-  var reviewItems = document.querySelectorAll('#review-list-item');
   for (var i = 0; i < data.reviews.length; i++) {
     if (data.reviews[i].reviewId === data.editing.reviewId) {
       data.reviews.splice(i, 1);
