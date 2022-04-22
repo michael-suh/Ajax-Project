@@ -210,6 +210,7 @@ ul {
   margin-top: 30px;
   width: 50px;
   font-size: 0.4cm;
+  border: none;
 }
 
 .yes-btn {
@@ -218,6 +219,7 @@ ul {
   margin-top: 30px;
   width: 50px;
   font-size: 0.4cm;
+  border: none;
 }
 
 .not-visible {
