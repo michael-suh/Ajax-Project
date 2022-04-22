@@ -333,7 +333,7 @@ $yesButton.addEventListener('click', function (event) {
     if (data.reviews[i].reviewId === data.editing.reviewId) {
       data.reviews.splice(i, 1);
     }
-    var reviewIdNum = JSON.parse(reviewItems[i].getAttribute('data-review-id'));
+    var reviewIdNum = parseInt(reviewItems[i].getAttribute('data-review-id'));
     if (reviewIdNum === data.editing.reviewId) {
       reviewItems[i].remove();
     }
