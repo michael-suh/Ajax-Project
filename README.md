@@ -1,3 +1,3 @@
-# ajax-project
+# Cinematique
 
-A dynamic HTML, CSS, and JavaScript solo project.
+A dynamic HTML5, CSS3, and JavaScript application for movie enthusiasts to review current movies in theater.
