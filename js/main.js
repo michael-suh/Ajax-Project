@@ -19,11 +19,15 @@ var $moviesTab = document.querySelector('#movies-tab');
 var reviewMovieTitle = document.querySelector('#review-movie');
 var reviewImage = document.querySelector('#review-image');
 var reviewItems = document.querySelectorAll('#review-list-item');
+var loadingSpinner = document.querySelector('.lds-facebook');
 
+loadingSpinner.className = 'lds-facebook';
 var xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://imdb-api.com/API/InTheaters/k_ke6b7now');
 xhr.responseType = 'json';
 xhr.addEventListener('load', function () {
+
+  loadingSpinner.className = 'lds-facebook hidden';
 
   data.films = xhr.response.items;
 
@@ -36,6 +40,9 @@ xhr.addEventListener('load', function () {
     $movieList.addEventListener('click', handlePosterClick);
     $addReviewButton.addEventListener('click', handleReviewButton);
   }
+  newReview.className = 'hidden';
+  $reviewList.className = 'hidden';
+  noReviews.className = 'text-center hidden';
 });
 
 xhr.send();
