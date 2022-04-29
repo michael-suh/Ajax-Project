@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Cinematique">
+  <meta property="og:description" content="A web application for movie enthusiasts who want to review current movies in theater.">
+  <meta property="og:image" content="images/movies.jpg">
+  <meta property="og:url" content="https://michael-suh.github.io/Cinematique/#">
   <title>Cinematique</title>
   <link rel="icon" href="images/favicon.ico">
   <link rel="stylesheet" href="css/reset.css">
@@ -75,7 +79,7 @@
             <div class="column-full">
               <form class="center">
                 <h2 id="review-movie"></h2>
-                <img id="review-image">
+                <img id="review-image" src="">
                 <h3 class="personal-review-txt">Personal Review</h3>
                 <textarea id="review-txt" cols="30" rows="5" required></textarea>
                 <div class="space-between">
@@ -86,7 +90,7 @@
             </div>
           </div>
 
-          <div id="review-list" class="" data view="review-list">
+          <div id="review-list" class="" data-view="review-list">
             <div>
               <ul id="new-review-list"></ul>
             </div>
