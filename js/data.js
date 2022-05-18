@@ -1,5 +1,5 @@
 /* exported data */
-var data = {
+let data = {
   films: [],
   view: 'list-page',
   reviews: [],
@@ -7,12 +7,12 @@ var data = {
   editing: null
 };
 
-var previousData = localStorage.getItem('current-movies');
+const previousData = localStorage.getItem('current-movies');
 if (previousData !== null) {
   data = JSON.parse(previousData);
 }
 
 window.addEventListener('beforeunload', function (event) {
-  var reviewsJSON = JSON.stringify(data);
+  const reviewsJSON = JSON.stringify(data);
   localStorage.setItem('current-movies', reviewsJSON);
 });

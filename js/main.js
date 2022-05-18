@@ -1,28 +1,28 @@
-var $movieList = document.querySelector('#movie-list');
-var $infoPage = document.querySelector('#info-page');
-var $movieInfo = document.querySelector('#movie-info');
-var $reviewPage = document.querySelector('#review-page');
-var noReviews = document.querySelector('#no-reviews');
-var newReview = document.querySelector('#new-review');
-var $addReviewButton = document.querySelector('#add-review-btn');
-var $reviewsTab = document.querySelector('#reviews-tab');
-var $reviewList = document.querySelector('#review-list');
-var $form = document.querySelector('form');
-var $ulElement = document.querySelector('ul');
-var newReviewList = document.querySelector('#new-review-list');
-var $deleteButton = document.querySelector('#review-delete');
-var $goBackbtn = document.querySelector('#back-btn');
-var $modal = document.querySelector('#modal');
-var $noButton = document.querySelector('.no-btn');
-var $yesButton = document.querySelector('.yes-btn');
-var $moviesTab = document.querySelector('#movies-tab');
-var reviewMovieTitle = document.querySelector('#review-movie');
-var reviewImage = document.querySelector('#review-image');
-var reviewItems = document.querySelectorAll('#review-list-item');
-var loadingSpinner = document.querySelector('.lds-facebook');
+const $movieList = document.querySelector('#movie-list');
+const $infoPage = document.querySelector('#info-page');
+const $movieInfo = document.querySelector('#movie-info');
+const $reviewPage = document.querySelector('#review-page');
+const noReviews = document.querySelector('#no-reviews');
+const newReview = document.querySelector('#new-review');
+const $addReviewButton = document.querySelector('#add-review-btn');
+const $reviewsTab = document.querySelector('#reviews-tab');
+const $reviewList = document.querySelector('#review-list');
+const $form = document.querySelector('form');
+const $ulElement = document.querySelector('ul');
+const newReviewList = document.querySelector('#new-review-list');
+const $deleteButton = document.querySelector('#review-delete');
+const $goBackbtn = document.querySelector('#back-btn');
+const $modal = document.querySelector('#modal');
+const $noButton = document.querySelector('.no-btn');
+const $yesButton = document.querySelector('.yes-btn');
+const $moviesTab = document.querySelector('#movies-tab');
+const reviewMovieTitle = document.querySelector('#review-movie');
+const reviewImage = document.querySelector('#review-image');
+const reviewItems = document.querySelectorAll('#review-list-item');
+const loadingSpinner = document.querySelector('.lds-facebook');
 
 loadingSpinner.className = 'lds-facebook';
-var xhr = new XMLHttpRequest();
+const xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://imdb-api.com/API/InTheaters/k_ke6b7now');
 xhr.responseType = 'json';
 xhr.addEventListener('load', function () {
@@ -31,8 +31,8 @@ xhr.addEventListener('load', function () {
 
   data.films = xhr.response.items;
 
-  for (var i = 0; i < data.films.length; i++) {
-    var $imgElement = document.createElement('img');
+  for (let i = 0; i < data.films.length; i++) {
+    const $imgElement = document.createElement('img');
     $imgElement.setAttribute('src', xhr.response.items[i].image);
     $imgElement.setAttribute('movie-index', i);
     $imgElement.setAttribute('id', 'movie-poster');
@@ -52,53 +52,53 @@ function handlePosterClick(event) {
     $movieList.className = 'hidden';
     $infoPage.className = '';
     $reviewPage.className = 'hidden';
-    var index = event.target.getAttribute('movie-index');
-    var movieInfoDom = createMovieInfo(xhr.response.items[index]);
+    const index = event.target.getAttribute('movie-index');
+    const movieInfoDom = createMovieInfo(xhr.response.items[index]);
     $movieInfo.appendChild(movieInfoDom);
   }
 }
 
 function createMovieInfo(movie) {
-  for (var i = 0; i < xhr.response.items.length; i++) {
+  for (let i = 0; i < xhr.response.items.length; i++) {
     var $movieInfoBox = document.createElement('div');
-    var titleElement = document.createElement('h2');
+    const titleElement = document.createElement('h2');
     titleElement.setAttribute('id', 'movie-title');
     titleElement.textContent = movie.title;
     $movieInfoBox.appendChild(titleElement);
 
-    var imgElement = document.createElement('img');
+    const imgElement = document.createElement('img');
     imgElement.setAttribute('src', movie.image);
     imgElement.setAttribute('id', 'movie-banner');
     $movieInfoBox.appendChild(imgElement);
 
-    var pElement = document.createElement('p');
+    const pElement = document.createElement('p');
     pElement.textContent = movie.plot;
     $movieInfoBox.appendChild(pElement);
 
-    var infoBox = document.createElement('div');
+    const infoBox = document.createElement('div');
     infoBox.setAttribute('class', 'info-box');
     $movieInfoBox.appendChild(infoBox);
 
-    var ulElement = document.createElement('ul');
+    const ulElement = document.createElement('ul');
     infoBox.appendChild(ulElement);
 
-    var liElement1 = document.createElement('li');
+    const liElement1 = document.createElement('li');
     liElement1.textContent = 'Director: ' + movie.directors;
     ulElement.appendChild(liElement1);
 
-    var liElement2 = document.createElement('li');
+    const liElement2 = document.createElement('li');
     liElement2.textContent = 'Cast: ' + movie.stars;
     ulElement.appendChild(liElement2);
 
-    var liElement3 = document.createElement('li');
+    const liElement3 = document.createElement('li');
     liElement3.textContent = 'Genres: ' + movie.genres;
     ulElement.appendChild(liElement3);
 
-    var liElement4 = document.createElement('li');
+    const liElement4 = document.createElement('li');
     liElement4.textContent = 'Content Rating: ' + movie.contentRating;
     ulElement.appendChild(liElement4);
 
-    var liElement5 = document.createElement('li');
+    const liElement5 = document.createElement('li');
     liElement5.textContent = 'Running Time: ' + movie.runtimeStr;
     ulElement.appendChild(liElement5);
   }
@@ -180,7 +180,7 @@ $form.addEventListener('submit', submitReview);
 
 function submitReview(event) {
   event.preventDefault();
-  var review = {};
+  let review = {};
   if (data.editing === null) {
     review = {
       title: document.querySelector('#movie-title').textContent,
@@ -204,7 +204,7 @@ function submitReview(event) {
 
     // push edited reviews to review list
 
-    for (var i = 0; i < data.reviews.length; i++) {
+    for (let i = 0; i < data.reviews.length; i++) {
       if (data.reviews[i].reviewId === review.reviewId) {
         data.reviews[i] = review;
       }
@@ -212,8 +212,8 @@ function submitReview(event) {
 
     // replace dom
 
-    for (var z = 0; z < reviewItems.length; z++) {
-      var reviewItemID = JSON.parse(reviewItems[z].getAttribute('data-review-id'));
+    for (let z = 0; z < reviewItems.length; z++) {
+      const reviewItemID = JSON.parse(reviewItems[z].getAttribute('data-review-id'));
       if (reviewItemID === data.editing.reviewId) {
         reviewItems[z].replaceWith(createReviewListItem(review));
       }
@@ -232,48 +232,48 @@ function submitReview(event) {
 }
 
 function createReviewListItem(review) {
-  var liElement = document.createElement('li');
+  const liElement = document.createElement('li');
   liElement.setAttribute('class', 'reviews-li');
   liElement.setAttribute('id', 'review-list-item');
   liElement.setAttribute('data-review-id', review.reviewId);
 
-  var row = document.createElement('div');
+  const row = document.createElement('div');
   row.className = 'row';
   liElement.appendChild(row);
 
-  var columnHalf = document.createElement('div');
+  const columnHalf = document.createElement('div');
   columnHalf.className = 'column-half';
   row.appendChild(columnHalf);
 
-  var imageElement = document.createElement('img');
+  const imageElement = document.createElement('img');
   imageElement.setAttribute('id', 'movie-banner');
   imageElement.setAttribute('src', review.image);
   columnHalf.appendChild(imageElement);
 
-  var reviewsText = document.createElement('div');
+  const reviewsText = document.createElement('div');
   reviewsText.className = 'column-half';
   row.appendChild(reviewsText);
 
-  var titleElement = document.createElement('h4');
+  const titleElement = document.createElement('h4');
   titleElement.setAttribute('id', 'movie-title');
   titleElement.textContent = review.title;
   reviewsText.appendChild(titleElement);
 
-  var spanElement = document.createElement('span');
+  const spanElement = document.createElement('span');
   spanElement.setAttribute('class', 'edit-span');
   liElement.appendChild(spanElement);
 
-  var editButton = document.createElement('button');
+  const editButton = document.createElement('button');
   editButton.setAttribute('id', 'edit-btn');
   editButton.textContent = 'Edit';
   spanElement.appendChild(editButton);
 
-  var pElement = document.createElement('p');
+  const pElement = document.createElement('p');
   pElement.setAttribute('class', 'review-list-p');
   pElement.textContent = review.text;
   reviewsText.appendChild(pElement);
 
-  var divElement = document.createElement('div');
+  const divElement = document.createElement('div');
   divElement.setAttribute('class', 'float-right');
   liElement.appendChild(divElement);
 
@@ -283,8 +283,8 @@ function createReviewListItem(review) {
 // make reviews stay after refreshing
 
 document.addEventListener('DOMContentLoaded', function (event) {
-  for (var i = 0; i < data.reviews.length; i++) {
-    var result = createReviewListItem(data.reviews[i]);
+  for (let i = 0; i < data.reviews.length; i++) {
+    const result = createReviewListItem(data.reviews[i]);
     newReviewList.appendChild(result);
   }
 });
@@ -296,10 +296,10 @@ newReviewList.addEventListener('click', handleEditBtn);
 function handleEditBtn(event) {
   if (event.target.matches('#edit-btn')) {
     $deleteButton.className = '';
-    var $liClosest = event.target.closest('li');
-    var $reviewId = $liClosest.getAttribute('data-review-id');
+    const $liClosest = event.target.closest('li');
+    let $reviewId = $liClosest.getAttribute('data-review-id');
     $reviewId = JSON.parse($reviewId);
-    for (var i = 0; i < data.reviews.length; i++) {
+    for (let i = 0; i < data.reviews.length; i++) {
       if (data.reviews[i].reviewId === $reviewId) {
         data.editing = data.reviews[i];
       }
@@ -335,11 +335,11 @@ $noButton.addEventListener('click', function (event) {
 });
 
 $yesButton.addEventListener('click', function (event) {
-  for (var i = 0; i < data.reviews.length; i++) {
+  for (let i = 0; i < data.reviews.length; i++) {
     if (data.reviews[i].reviewId === data.editing.reviewId) {
       data.reviews.splice(i, 1);
     }
-    var reviewIdNum = parseInt(reviewItems[i].getAttribute('data-review-id'));
+    const reviewIdNum = parseInt(reviewItems[i].getAttribute('data-review-id'));
     if (reviewIdNum === data.editing.reviewId) {
       reviewItems[i].remove();
     }
